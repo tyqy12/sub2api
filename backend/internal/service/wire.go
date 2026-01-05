@@ -153,9 +153,15 @@ func ProvidePerformanceMonitor(concurrencyService *ConcurrencyService, accountRe
 				// Aggregate by group
 				for _, group := range account.Groups {
 					if groupData, exists := concurrencyByGroup[group.ID]; exists {
-						groupData["current"] = groupData["current"].(int64) + int64(accountCount)
-						groupData["max"] = groupData["max"].(int64) + int64(account.Concurrency)
-						groupData["waiting"] = groupData["waiting"].(int64) + int64(waitCount)
+						if current, ok := groupData["current"].(int64); ok {
+							groupData["current"] = current + int64(accountCount)
+						}
+						if maxCap, ok := groupData["max"].(int64); ok {
+							groupData["max"] = maxCap + int64(account.Concurrency)
+						}
+						if waiting, ok := groupData["waiting"].(int64); ok {
+							groupData["waiting"] = waiting + int64(waitCount)
+						}
 					}
 				}
 			}
