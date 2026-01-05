@@ -107,14 +107,14 @@ func ProvidePerformanceMonitor(concurrencyService *ConcurrencyService, accountRe
 			}
 
 			// Group by group
-			concurrencyByGroup := make(map[int64]map[string]interface{})
+			concurrencyByGroup := make(map[int64]map[string]any)
 			// Initialize empty groups map with group info
 			allGroups, err := groupRepo.ListActive(ctx)
 			if err != nil {
 				log.Printf("[PerformanceMonitor] Warning: list active groups failed: %v", err)
 			} else {
 				for _, group := range allGroups {
-					concurrencyByGroup[group.ID] = map[string]interface{}{
+					concurrencyByGroup[group.ID] = map[string]any{
 						"group_name": group.Name,
 						"platform":   group.Platform,
 						"current":    int64(0),

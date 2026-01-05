@@ -356,7 +356,7 @@ func (s *ConcurrencyService) GetPlatformConcurrency(ctx context.Context, account
 
 // GetGroupConcurrency returns current concurrency data for a specific group
 // Returns map[string]interface{}{"current":, "max":, "waiting":, "group_name":, "platform":}
-func (s *ConcurrencyService) GetGroupConcurrency(ctx context.Context, groupID int64, groupName, platform string, maxCapacity int64, accounts []Account) (map[string]interface{}, error) {
+func (s *ConcurrencyService) GetGroupConcurrency(ctx context.Context, groupID int64, groupName, platform string, maxCapacity int64, accounts []Account) (map[string]any, error) {
 	var current, waiting int64
 
 	for _, account := range accounts {
@@ -376,7 +376,7 @@ func (s *ConcurrencyService) GetGroupConcurrency(ctx context.Context, groupID in
 		waiting += int64(w)
 	}
 
-	return map[string]interface{}{
+	return map[string]any{
 		"current":    current,
 		"max":        maxCapacity,
 		"waiting":    waiting,

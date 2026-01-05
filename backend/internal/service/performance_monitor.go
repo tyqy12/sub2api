@@ -281,7 +281,7 @@ func (m *PerformanceMonitor) UpdateConcurrencyByPlatform(concurrencyData map[str
 
 // UpdateConcurrencyByGroup 更新按分组的并发状态
 // concurrencyData: map[groupID]map[string]interface{}{"current":, "max":, "waiting":, "group_name":, "platform":}
-func (m *PerformanceMonitor) UpdateConcurrencyByGroup(concurrencyData map[int64]map[string]interface{}) {
+func (m *PerformanceMonitor) UpdateConcurrencyByGroup(concurrencyData map[int64]map[string]any) {
 	m.statsMu.Lock()
 	defer m.statsMu.Unlock()
 
