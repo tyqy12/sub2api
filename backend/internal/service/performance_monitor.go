@@ -9,47 +9,47 @@ import (
 // PerformanceMetrics 性能指标结构
 type PerformanceMetrics struct {
 	// 请求统计
-	TotalRequests        int64 `json:"total_requests"`
-	ActiveRequests       int64 `json:"active_requests"`
-	CompletedRequests    int64 `json:"completed_requests"`
-	FailedRequests       int64 `json:"failed_requests"`
-	TimeoutRequests      int64 `json:"timeout_requests"`
+	TotalRequests     int64 `json:"total_requests"`
+	ActiveRequests    int64 `json:"active_requests"`
+	CompletedRequests int64 `json:"completed_requests"`
+	FailedRequests    int64 `json:"failed_requests"`
+	TimeoutRequests   int64 `json:"timeout_requests"`
 
 	// 响应时间统计（毫秒）
-	AvgResponseTimeMs   float64 `json:"avg_response_time_ms"`
-	MinResponseTimeMs   int64   `json:"min_response_time_ms"`
-	MaxResponseTimeMs   int64   `json:"max_response_time_ms"`
-	P50ResponseTimeMs   int64   `json:"p50_response_time_ms"`
-	P95ResponseTimeMs   int64   `json:"p95_response_time_ms"`
-	P99ResponseTimeMs   int64   `json:"p99_response_time_ms"`
+	AvgResponseTimeMs float64 `json:"avg_response_time_ms"`
+	MinResponseTimeMs int64   `json:"min_response_time_ms"`
+	MaxResponseTimeMs int64   `json:"max_response_time_ms"`
+	P50ResponseTimeMs int64   `json:"p50_response_time_ms"`
+	P95ResponseTimeMs int64   `json:"p95_response_time_ms"`
+	P99ResponseTimeMs int64   `json:"p99_response_time_ms"`
 
 	// 上游 API 响应时间（毫秒）
-	AvgUpstreamTimeMs   float64 `json:"avg_upstream_time_ms"`
-	MaxUpstreamTimeMs   int64   `json:"max_upstream_time_ms"`
+	AvgUpstreamTimeMs float64 `json:"avg_upstream_time_ms"`
+	MaxUpstreamTimeMs int64   `json:"max_upstream_time_ms"`
 
 	// 等待时间统计（毫秒）
-	AvgWaitTimeMs       float64 `json:"avg_wait_time_ms"`
-	MaxWaitTimeMs       int64   `json:"max_wait_time_ms"`
+	AvgWaitTimeMs float64 `json:"avg_wait_time_ms"`
+	MaxWaitTimeMs int64   `json:"max_wait_time_ms"`
 
 	// 并发槽位使用
-	UserSlotUsage         int64               `json:"user_slot_usage"`
-	AccountSlotUsage      int64               `json:"account_slot_usage"`
-	WaitQueueSize         int64               `json:"wait_queue_size"`
-	ConcurrencyByPlatform []ConcurrencyStatus `json:"concurrency_by_platform"`
+	UserSlotUsage         int64                `json:"user_slot_usage"`
+	AccountSlotUsage      int64                `json:"account_slot_usage"`
+	WaitQueueSize         int64                `json:"wait_queue_size"`
+	ConcurrencyByPlatform []ConcurrencyStatus  `json:"concurrency_by_platform"`
 	ConcurrencyByGroup    []ConcurrencyByGroup `json:"concurrency_by_group"`
 
 	// 吞吐量
-	RequestsPerSecond   float64 `json:"requests_per_second"`
-	TokensPerSecond     float64 `json:"tokens_per_second"`
+	RequestsPerSecond float64 `json:"requests_per_second"`
+	TokensPerSecond   float64 `json:"tokens_per_second"`
 
 	// 统计周期
-	StartTime           string  `json:"start_time"`
-	LastUpdated         string  `json:"last_updated"`
+	StartTime   string `json:"start_time"`
+	LastUpdated string `json:"last_updated"`
 }
 
 // ConcurrencyStatus 按平台的并发状态
 type ConcurrencyStatus struct {
-	Platform       string  `json:"platform"`       // anthropic, openai, gemini, antigravity
+	Platform       string  `json:"platform"` // anthropic, openai, gemini, antigravity
 	CurrentInUse   int64   `json:"current_in_use"`
 	MaxCapacity    int64   `json:"max_capacity"`
 	LoadPercentage float64 `json:"load_percentage"`
@@ -87,10 +87,10 @@ type PerformanceMonitor struct {
 	enabled atomic.Bool
 
 	// 基础统计
-	totalRequests   int64
-	completedReqs   int64
-	failedReqs      int64
-	timeoutReqs     int64
+	totalRequests int64
+	completedReqs int64
+	failedReqs    int64
+	timeoutReqs   int64
 
 	// 活跃请求
 	activeRequests int64
@@ -106,12 +106,11 @@ type PerformanceMonitor struct {
 	// 滑动窗口（最近5分钟）
 	windowStart    time.Time
 	windowReqCount int64
-	windowTokens   int64
 
 	// 并发槽位使用
-	userSlotUsage   int64
+	userSlotUsage    int64
 	accountSlotUsage int64
-	waitQueueSize   int64
+	waitQueueSize    int64
 
 	// 按平台的并发状态
 	concurrencyByPlatform map[string]*ConcurrencyStatus
@@ -180,7 +179,6 @@ func (m *PerformanceMonitor) RecordRequestEnd(record RequestRecord) {
 	// 更新滑动窗口
 	m.statsMu.Lock()
 	m.windowReqCount++
-	m.windowTokens += 0 // 可以添加 token 计数
 	m.statsMu.Unlock()
 }
 
@@ -296,11 +294,21 @@ func (m *PerformanceMonitor) UpdateConcurrencyByGroup(concurrencyData map[int64]
 			m.concurrencyByGroup[groupID] = status
 		}
 
-		status.GroupName = data["group_name"].(string)
-		status.Platform = data["platform"].(string)
-		status.CurrentInUse = data["current"].(int64)
-		status.MaxCapacity = data["max"].(int64)
-		status.WaitingInQueue = data["waiting"].(int64)
+		if groupName, ok := data["group_name"].(string); ok {
+			status.GroupName = groupName
+		}
+		if platform, ok := data["platform"].(string); ok {
+			status.Platform = platform
+		}
+		if current, ok := data["current"].(int64); ok {
+			status.CurrentInUse = current
+		}
+		if maxCap, ok := data["max"].(int64); ok {
+			status.MaxCapacity = maxCap
+		}
+		if waiting, ok := data["waiting"].(int64); ok {
+			status.WaitingInQueue = waiting
+		}
 
 		if status.MaxCapacity > 0 {
 			status.LoadPercentage = float64(status.CurrentInUse) / float64(status.MaxCapacity) * 100
@@ -479,7 +487,6 @@ func (m *PerformanceMonitor) Reset() {
 	m.maxUpstreamTime = 0
 	m.maxWaitTime = 0
 	m.windowReqCount = 0
-	m.windowTokens = 0
 	m.concurrencyByPlatform = make(map[string]*ConcurrencyStatus)
 	m.concurrencyByGroup = make(map[int64]*ConcurrencyByGroup)
 	m.statsMu.Unlock()

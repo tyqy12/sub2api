@@ -32,19 +32,19 @@ func (h *PerformanceHandler) GetMetrics(c *gin.Context) {
 	}
 	metrics := h.monitor.GetMetrics()
 	response.Success(c, gin.H{
-		"enabled":              true,
-		"total_requests":       metrics.TotalRequests,
-		"active_requests":      metrics.ActiveRequests,
-		"completed_requests":   metrics.CompletedRequests,
-		"failed_requests":      metrics.FailedRequests,
-		"timeout_requests":     metrics.TimeoutRequests,
+		"enabled":            true,
+		"total_requests":     metrics.TotalRequests,
+		"active_requests":    metrics.ActiveRequests,
+		"completed_requests": metrics.CompletedRequests,
+		"failed_requests":    metrics.FailedRequests,
+		"timeout_requests":   metrics.TimeoutRequests,
 		"response_time": gin.H{
-			"avg_ms":  metrics.AvgResponseTimeMs,
-			"min_ms":  metrics.MinResponseTimeMs,
-			"max_ms":  metrics.MaxResponseTimeMs,
-			"p50_ms":  metrics.P50ResponseTimeMs,
-			"p95_ms":  metrics.P95ResponseTimeMs,
-			"p99_ms":  metrics.P99ResponseTimeMs,
+			"avg_ms": metrics.AvgResponseTimeMs,
+			"min_ms": metrics.MinResponseTimeMs,
+			"max_ms": metrics.MaxResponseTimeMs,
+			"p50_ms": metrics.P50ResponseTimeMs,
+			"p95_ms": metrics.P95ResponseTimeMs,
+			"p99_ms": metrics.P99ResponseTimeMs,
 		},
 		"upstream_time": gin.H{
 			"avg_ms": metrics.AvgUpstreamTimeMs,

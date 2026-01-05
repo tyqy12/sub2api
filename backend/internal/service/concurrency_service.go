@@ -327,9 +327,9 @@ func (s *ConcurrencyService) GetPlatformConcurrency(ctx context.Context, account
 		if result[platform] == nil {
 			result[platform] = map[string]int64{
 				"current": 0,
-				"max":      0,
-				"waiting":  0,
-				"active":   0,
+				"max":     0,
+				"waiting": 0,
+				"active":  0,
 			}
 		}
 
@@ -377,9 +377,9 @@ func (s *ConcurrencyService) GetGroupConcurrency(ctx context.Context, groupID in
 	}
 
 	return map[string]interface{}{
-		"current":   current,
-		"max":       maxCapacity,
-		"waiting":   waiting,
+		"current":    current,
+		"max":        maxCapacity,
+		"waiting":    waiting,
 		"group_name": groupName,
 		"platform":   platform,
 	}, nil
