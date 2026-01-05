@@ -39,6 +39,7 @@ Sub2API is an AI API gateway platform designed to distribute and manage API quot
 - **Concurrency Control** - Per-user and per-account concurrency limits
 - **Rate Limiting** - Configurable request and token rate limits
 - **Admin Dashboard** - Web interface for monitoring and management
+- **Performance Monitoring** - Real-time system performance metrics, health status, and concurrency insights
 
 ## Tech Stack
 
@@ -345,6 +346,35 @@ Antigravity accounts support optional **hybrid scheduling**. When enabled, the g
 In Claude Code, Plan Mode cannot exit automatically. (Normally when using the native Claude API, after planning is complete, Claude Code will pop up options for users to approve or reject the plan.)
 
 **Workaround**: Press `Shift + Tab` to manually exit Plan Mode, then type your response to approve or reject the plan.
+
+---
+
+## Performance Monitoring
+
+Sub2API includes a built-in performance monitoring system for real-time system health and performance insights.
+
+### Features
+
+- **Request Statistics** - Total, active, completed, failed, and timeout request counts
+- **Response Time Metrics** - Average, P50, P95, P99 response times with min/max values
+- **Upstream API Timing** - Track upstream API response times separately
+- **Concurrency Status** - Real-time slot usage for users and accounts
+- **Platform Breakdown** - Concurrency metrics by platform (Anthropic, OpenAI, Gemini, Antigravity)
+- **Group-level Metrics** - Per-group concurrency and queue status
+- **Health Check** - Automatic system health evaluation with warnings
+- **Throughput Monitoring** - Requests per second (RPS) tracking
+
+### Health Status Indicators
+
+| Status | Description |
+|--------|-------------|
+| **Healthy** | All metrics within normal range |
+| **Degraded** | P95 response time > 60s or timeout rate > 1% |
+| **Unhealthy** | Timeout rate > 5% |
+
+### Usage
+
+Access the Performance Monitor from the Admin Dashboard sidebar. Toggle monitoring on/off and view real-time metrics with auto-refresh (30-second intervals).
 
 ---
 

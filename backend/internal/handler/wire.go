@@ -24,6 +24,7 @@ func ProvideAdminHandlers(
 	subscriptionHandler *admin.SubscriptionHandler,
 	usageHandler *admin.UsageHandler,
 	userAttributeHandler *admin.UserAttributeHandler,
+	performanceHandler *admin.PerformanceHandler,
 ) *AdminHandlers {
 	return &AdminHandlers{
 		Dashboard:        dashboardHandler,
@@ -41,6 +42,7 @@ func ProvideAdminHandlers(
 		Subscription:     subscriptionHandler,
 		Usage:            usageHandler,
 		UserAttribute:    userAttributeHandler,
+		Performance:      performanceHandler,
 	}
 }
 
@@ -110,6 +112,9 @@ var ProviderSet = wire.NewSet(
 	admin.NewSubscriptionHandler,
 	admin.NewUsageHandler,
 	admin.NewUserAttributeHandler,
+
+	// Performance monitoring
+	admin.NewPerformanceHandler,
 
 	// AdminHandlers and Handlers constructors
 	ProvideAdminHandlers,

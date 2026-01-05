@@ -58,6 +58,9 @@ func RegisterAdminRoutes(
 
 		// 用户属性管理
 		registerUserAttributeRoutes(admin, h)
+
+		// 性能监控
+		registerPerformanceRoutes(admin, h)
 	}
 }
 
@@ -264,5 +267,17 @@ func registerUserAttributeRoutes(admin *gin.RouterGroup, h *handler.Handlers) {
 		attrs.PUT("/reorder", h.Admin.UserAttribute.ReorderDefinitions)
 		attrs.PUT("/:id", h.Admin.UserAttribute.UpdateDefinition)
 		attrs.DELETE("/:id", h.Admin.UserAttribute.DeleteDefinition)
+	}
+}
+
+func registerPerformanceRoutes(admin *gin.RouterGroup, h *handler.Handlers) {
+	performance := admin.Group("/performance")
+	{
+		performance.GET("/metrics", h.Admin.Performance.GetMetrics)
+		performance.GET("/slow", h.Admin.Performance.GetSlowRequests)
+		performance.GET("/health", h.Admin.Performance.HealthCheck)
+		performance.GET("/enabled", h.Admin.Performance.GetEnabled)
+		performance.POST("/enable", h.Admin.Performance.SetEnabled)
+		performance.POST("/reset", h.Admin.Performance.ResetMetrics)
 	}
 }

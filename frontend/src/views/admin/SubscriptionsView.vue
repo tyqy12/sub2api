@@ -202,7 +202,7 @@
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0 1 8 0z"
                     />
                   </svg>
                   <span>{{ formatResetTime(row.daily_window_start, 'daily') }}</span>
@@ -239,7 +239,7 @@
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0 1 8 0z"
                     />
                   </svg>
                   <span>{{ formatResetTime(row.weekly_window_start, 'weekly') }}</span>
@@ -276,7 +276,7 @@
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0 1 8 0z"
                     />
                   </svg>
                   <span>{{ formatResetTime(row.monthly_window_start, 'monthly') }}</span>
@@ -353,7 +353,7 @@
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0 1 8 0z"
                   />
                 </svg>
                 <span class="text-xs">{{ t('admin.subscriptions.extend') }}</span>

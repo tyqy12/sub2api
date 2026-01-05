@@ -259,6 +259,18 @@ const routes: RouteRecordRaw[] = [
       descriptionKey: 'admin.usage.description'
     }
   },
+  {
+    path: '/admin/performance',
+    name: 'AdminPerformance',
+    component: () => import('@/views/admin/PerformanceView.vue'),
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true,
+      title: 'Performance Monitoring',
+      titleKey: 'admin.performance.title',
+      descriptionKey: 'admin.performance.description'
+    }
+  },
 
   // ==================== 404 Not Found ====================
   {

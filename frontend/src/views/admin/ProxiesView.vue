@@ -155,7 +155,7 @@
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0 1 8 0z"
                   />
                 </svg>
                 <span class="text-xs">{{ t('admin.proxies.testConnection') }}</span>
@@ -377,7 +377,7 @@
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0 1 8 0z"
                 />
               </svg>
               <span class="text-gray-700 dark:text-gray-300">
@@ -395,7 +395,7 @@
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+                  d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0 1 8 0zm-9 3.75h.008v.008H12v-.008z"
                 />
               </svg>
               <span class="text-amber-600 dark:text-amber-400">

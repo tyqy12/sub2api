@@ -30,6 +30,7 @@ type GatewayHandler struct {
 	userService               *service.UserService
 	billingCacheService       *service.BillingCacheService
 	concurrencyHelper         *ConcurrencyHelper
+	performanceMonitor        *service.PerformanceMonitor
 }
 
 // NewGatewayHandler creates a new GatewayHandler
@@ -40,6 +41,7 @@ func NewGatewayHandler(
 	userService *service.UserService,
 	concurrencyService *service.ConcurrencyService,
 	billingCacheService *service.BillingCacheService,
+	performanceMonitor *service.PerformanceMonitor,
 	cfg *config.Config,
 ) *GatewayHandler {
 	pingInterval := time.Duration(0)
@@ -53,6 +55,7 @@ func NewGatewayHandler(
 		userService:               userService,
 		billingCacheService:       billingCacheService,
 		concurrencyHelper:         NewConcurrencyHelper(concurrencyService, SSEPingFormatClaude, pingInterval),
+		performanceMonitor:        performanceMonitor,
 	}
 }
 
@@ -140,6 +143,11 @@ func (h *GatewayHandler) Messages(c *gin.Context) {
 		status, code, message := billingErrorDetails(err)
 		h.handleStreamingAwareError(c, status, code, message, streamStarted)
 		return
+	}
+
+	// 记录请求开始（性能监控）
+	if h.performanceMonitor != nil {
+		h.performanceMonitor.RecordRequestStart()
 	}
 
 	// 计算粘性会话hash
@@ -280,6 +288,11 @@ func (h *GatewayHandler) Messages(c *gin.Context) {
 					log.Printf("Record usage failed: %v", err)
 				}
 			}(result, account)
+
+			// 记录性能数据
+			if h.performanceMonitor != nil && result != nil {
+				h.performanceMonitor.RecordRequestComplete(result.Duration.Milliseconds(), result.Duration.Milliseconds())
+			}
 			return
 		}
 	}
@@ -407,6 +420,11 @@ func (h *GatewayHandler) Messages(c *gin.Context) {
 				log.Printf("Record usage failed: %v", err)
 			}
 		}(result, account)
+
+		// 记录性能数据
+		if h.performanceMonitor != nil && result != nil {
+			h.performanceMonitor.RecordRequestComplete(result.Duration.Milliseconds(), result.Duration.Milliseconds())
+		}
 		return
 	}
 }

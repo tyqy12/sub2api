@@ -185,7 +185,8 @@ export default {
     expand: 'Expand',
     logout: 'Logout',
     github: 'GitHub',
-    mySubscriptions: 'My Subscriptions'
+    mySubscriptions: 'My Subscriptions',
+    performance: 'Performance'
   },
 
   // Auth
@@ -1803,6 +1804,127 @@ export default {
       failedToSave: 'Failed to save settings',
       failedToTestSmtp: 'SMTP connection test failed',
       failedToSendTestEmail: 'Failed to send test email'
+    },
+
+    // Performance Monitoring
+    performance: {
+      title: 'Performance Monitor',
+      description: 'System performance metrics and status',
+      health: {
+        title: 'Health Status',
+        healthy: 'Healthy',
+        warning: 'Warning',
+        critical: 'Critical',
+        unknown: 'Unknown',
+        healthy_label: 'Healthy',
+        warning_label: 'Warning',
+        critical_label: 'Critical',
+        unknown_label: 'Unknown',
+        degraded: 'Degraded'
+      },
+      requests: {
+        title: 'Request Statistics',
+        total: 'Total Requests',
+        active: 'Active',
+        completed: 'Completed',
+        failed: 'Failed',
+        timeout: 'Timeout'
+      },
+      responseTime: {
+        title: 'Response Time',
+        average: 'Average',
+        min: 'Min',
+        max: 'Max',
+        p50: 'P50 (Median)',
+        p95: 'P95',
+        p99: 'P99',
+        unit: 'ms',
+        avgResponse: 'Avg Response',
+        maxResponse: 'Max Response',
+        p95_label: 'P95',
+        p99_label: 'P99'
+      },
+      upstream: {
+        title: 'Upstream Response',
+        avgResponse: 'Avg Response',
+        avgWait: 'Avg Wait',
+        unit: 'ms',
+        avgUpstream: 'Upstream Avg',
+        maxUpstream: 'Upstream Max',
+        avgWait_label: 'Avg Wait'
+      },
+      concurrency: {
+        title: 'Concurrency Slots',
+        byPlatform: 'By Platform',
+        byGroup: 'By Group',
+        used: 'Used',
+        available: 'Available',
+        total: 'Total Slots',
+        usage: 'Usage',
+        userSlots: 'User Slots',
+        accountSlots: 'Account Slots',
+        waitQueue: 'Wait Queue',
+        activeRequests: 'Active Requests',
+        waitingInQueue: 'Waiting',
+        platforms: {
+          anthropic: 'Anthropic',
+          openai: 'OpenAI',
+          gemini: 'Gemini',
+          antigravity: 'Antigravity'
+        }
+      },
+      throughput: {
+        title: 'Throughput',
+        requestsPerSecond: 'Requests/Second',
+        rate: 'Rate',
+        rps: 'Requests/Sec'
+      },
+      slowRequests: {
+        title: 'Slow Requests',
+        threshold: 'Slow Request Threshold',
+        count: 'Slow Request Count',
+        slowRequestsLabel: 'Requests with response > {threshold}ms',
+        noSlowRequests: 'No slow request records'
+      },
+      disabledTitle: 'Performance Monitoring Disabled',
+      disabledDesc: 'Click the button below to enable performance monitoring. The system will start collecting performance metrics.',
+      enableButton: 'Enable Monitoring',
+      enabledSuccess: 'Performance monitoring enabled',
+      disabledSuccess: 'Performance monitoring disabled',
+      enableFailed: 'Failed to enable performance monitoring',
+      toggleFailed: 'Failed to toggle performance monitoring',
+      toggleEnabled: 'Performance Monitoring',
+      toggleEnabledHint: 'When enabled, the system will collect performance metrics, which may have a slight performance impact',
+      reset: 'Reset Statistics',
+      resetConfirm: 'Are you sure you want to reset all performance statistics? This action cannot be undone.',
+      resetSuccess: 'Performance statistics reset successfully',
+      resetFailed: 'Failed to reset performance statistics',
+      lastUpdated: 'Last Updated',
+      live: 'Live',
+      loading: 'Loading...',
+      failedToLoad: 'Failed to load performance data',
+      failedToReset: 'Failed to reset performance statistics',
+      warnings: 'Warnings',
+      noWarnings: 'No warnings',
+      warningTitle: 'Warning',
+      slowResponseTime: 'Response time is high ({time}ms)',
+      highConcurrency: 'High concurrency usage ({usage}%)',
+      highFailureRate: 'High failure rate ({rate}%)',
+      manyTimeouts: 'Many timeout requests ({count})',
+      uptime: 'Uptime',
+      totalRequests: 'Total Requests',
+      activeRequests: 'Active Requests',
+      completed: 'Completed',
+      timeouts: 'Timeouts',
+      avgUpstream: 'Upstream',
+      maxUpstream: 'Upstream Max',
+      avgWait: 'Avg Wait',
+      maxWait: 'Max Wait',
+      rps: 'Requests/Sec',
+      slotUsage: 'Slot Usage',
+      userSlots: 'User Slots',
+      accountSlots: 'Account Slots',
+      waitQueue: 'Wait Queue'
     }
   },
 

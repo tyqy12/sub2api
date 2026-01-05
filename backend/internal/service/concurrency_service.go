@@ -312,3 +312,75 @@ func (s *ConcurrencyService) GetAccountConcurrencyBatch(ctx context.Context, acc
 
 	return result, nil
 }
+
+// GetPlatformConcurrency returns current concurrency data aggregated by platform
+// Returns map[platform]map[string]int64{"current":, "max":, "waiting":, "active":}
+func (s *ConcurrencyService) GetPlatformConcurrency(ctx context.Context, accounts []Account) (map[string]map[string]int64, error) {
+	result := make(map[string]map[string]int64)
+
+	for _, account := range accounts {
+		platform := account.Platform
+		if platform == "" {
+			platform = "unknown"
+		}
+
+		if result[platform] == nil {
+			result[platform] = map[string]int64{
+				"current": 0,
+				"max":      0,
+				"waiting":  0,
+				"active":   0,
+			}
+		}
+
+		// Get current concurrency for this account
+		current, err := s.cache.GetAccountConcurrency(ctx, account.ID)
+		if err != nil {
+			current = 0
+		}
+
+		// Get waiting count for this account
+		waiting, err := s.cache.GetAccountWaitingCount(ctx, account.ID)
+		if err != nil {
+			waiting = 0
+		}
+
+		result[platform]["current"] += int64(current)
+		result[platform]["max"] += int64(account.Concurrency)
+		result[platform]["waiting"] += int64(waiting)
+		result[platform]["active"] += int64(current)
+	}
+
+	return result, nil
+}
+
+// GetGroupConcurrency returns current concurrency data for a specific group
+// Returns map[string]interface{}{"current":, "max":, "waiting":, "group_name":, "platform":}
+func (s *ConcurrencyService) GetGroupConcurrency(ctx context.Context, groupID int64, groupName, platform string, maxCapacity int64, accounts []Account) (map[string]interface{}, error) {
+	var current, waiting int64
+
+	for _, account := range accounts {
+		// Get current concurrency for this account
+		c, err := s.cache.GetAccountConcurrency(ctx, account.ID)
+		if err != nil {
+			c = 0
+		}
+
+		// Get waiting count for this account
+		w, err := s.cache.GetAccountWaitingCount(ctx, account.ID)
+		if err != nil {
+			w = 0
+		}
+
+		current += int64(c)
+		waiting += int64(w)
+	}
+
+	return map[string]interface{}{
+		"current":   current,
+		"max":       maxCapacity,
+		"waiting":   waiting,
+		"group_name": groupName,
+		"platform":   platform,
+	}, nil
+}

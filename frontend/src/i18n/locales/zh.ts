@@ -183,7 +183,8 @@ export default {
     expand: '展开',
     logout: '退出登录',
     github: 'GitHub',
-    mySubscriptions: '我的订阅'
+    mySubscriptions: '我的订阅',
+    performance: '性能监控'
   },
 
   // Auth
@@ -1947,6 +1948,127 @@ export default {
       failedToSave: '保存设置失败',
       failedToTestSmtp: 'SMTP 连接测试失败',
       failedToSendTestEmail: '发送测试邮件失败'
+    },
+
+    // Performance Monitoring
+    performance: {
+      title: '性能监控',
+      description: '系统性能指标和运行状态',
+      health: {
+        title: '健康状态',
+        healthy: '健康',
+        warning: '警告',
+        critical: '严重',
+        unknown: '未知',
+        healthy_label: '健康',
+        warning_label: '警告',
+        critical_label: '严重',
+        unknown_label: '未知',
+        degraded: '降级'
+      },
+      requests: {
+        title: '请求统计',
+        total: '总请求数',
+        active: '活跃请求',
+        completed: '已完成',
+        failed: '失败',
+        timeout: '超时'
+      },
+      responseTime: {
+        title: '响应时间',
+        average: '平均响应',
+        min: '最小',
+        max: '最大',
+        p50: 'P50（中位数）',
+        p95: 'P95',
+        p99: 'P99',
+        unit: '毫秒',
+        avgResponse: '平均响应',
+        maxResponse: '最大响应',
+        p95_label: 'P95',
+        p99_label: 'P99'
+      },
+      upstream: {
+        title: '上游响应',
+        avgResponse: '平均响应',
+        avgWait: '平均等待',
+        unit: '毫秒',
+        avgUpstream: '上游平均',
+        maxUpstream: '上游最大',
+        avgWait_label: '平均等待'
+      },
+      concurrency: {
+        title: '并发槽位',
+        byPlatform: '按平台并发',
+        byGroup: '按分组并发',
+        used: '已使用',
+        available: '可用',
+        total: '总槽位',
+        usage: '使用率',
+        userSlots: '用户槽位',
+        accountSlots: '账号槽位',
+        waitQueue: '等待队列',
+        activeRequests: '活跃请求',
+        waitingInQueue: '等待中',
+        platforms: {
+          anthropic: 'Anthropic',
+          openai: 'OpenAI',
+          gemini: 'Gemini',
+          antigravity: 'Antigravity'
+        }
+      },
+      throughput: {
+        title: '吞吐量',
+        requestsPerSecond: '请求/秒',
+        rate: '吞吐率',
+        rps: '每秒请求'
+      },
+      slowRequests: {
+        title: '慢请求',
+        threshold: '慢请求阈值',
+        count: '慢请求数',
+        slowRequestsLabel: '响应 > {threshold}ms 的请求',
+        noSlowRequests: '暂无慢请求记录'
+      },
+      disabledTitle: '性能监控已关闭',
+      disabledDesc: '点击下方按钮开启性能监控，系统将开始收集性能指标',
+      enableButton: '开启监控',
+      enabledSuccess: '性能监控已开启',
+      disabledSuccess: '性能监控已关闭',
+      enableFailed: '开启性能监控失败',
+      toggleFailed: '切换性能监控状态失败',
+      toggleEnabled: '性能监控',
+      toggleEnabledHint: '开启后系统将收集性能指标，可能会有轻微性能开销',
+      reset: '重置统计',
+      resetConfirm: '确定要重置所有性能统计吗？此操作不可撤销。',
+      resetSuccess: '性能统计已重置',
+      resetFailed: '重置性能统计失败',
+      lastUpdated: '最后更新',
+      live: '实时',
+      loading: '加载中...',
+      failedToLoad: '加载性能数据失败',
+      failedToReset: '重置性能统计失败',
+      warnings: '警告事项',
+      noWarnings: '暂无警告',
+      warningTitle: '警告',
+      slowResponseTime: '响应时间较长（{time}ms）',
+      highConcurrency: '并发使用率较高（{usage}%）',
+      highFailureRate: '失败率较高（{rate}%）',
+      manyTimeouts: '超时请求较多（{count}次）',
+      uptime: '运行时间',
+      totalRequests: '总请求数',
+      activeRequests: '活跃请求',
+      completed: '已完成',
+      timeouts: '超时',
+      avgUpstream: '上游响应',
+      maxUpstream: '上游最大',
+      avgWait: '平均等待',
+      maxWait: '最大等待',
+      rps: '每秒请求',
+      slotUsage: '槽位使用',
+      userSlots: '用户槽位',
+      accountSlots: '账号槽位',
+      waitQueue: '等待队列'
     }
   },
 
